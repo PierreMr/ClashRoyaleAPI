@@ -1,41 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello {{ controller_name }}!{% endblock %}
+{% block title %}ClashRoyaleAPI App{% endblock %}
 
 {% block body %}
-	<style>
-	    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-	    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-	</style>
+	<div class="container">
+		<h1 class="text-center mb-5">Welcome to my ClashRoyaleAPI App</h1>
 
-	<div class="col-12">
-		<h1 class="text-center mb-4">Open Tournaments Clash Royale</h1>
+		<p class="lead">You can see the <a href="/opentournaments">Open Tournaments</a></p>
 
-		<table class="table table-bordered table-striped table-hover">
-			<thead>
-				<tr>
-					<th>Name</th>
-					<th>Max Players</th>
-					<th>Current Players</th>
-					<th>Status</th>
-					<th>Create Time</th>
-					<th>Duration</th>
-				</tr>
-			</thead>
-			<tbody>
-				{% for tournament in data %}
-					{% if tournament.currentPlayers != tournament.maxPlayers %}
-						<tr>
-							<td>{{ tournament.name }}</td>
-							<td>{{ tournament.maxPlayers }}</td>
-							<td>{{ tournament.currentPlayers }}</td>
-							<td>{{ tournament.status }}</td>
-							<td>{{ tournament.createTime|date('d/m/Y H:i') }}</td>
-							<td>{{ tournament.duration|date('H:i') }}</td>
-						</tr>
-					{% endif %}
-				{% endfor %}
-			</tbody>
-		</table>
+		<blockquote class="blockquote mt-5">
+  			<footer class="blockquote-footer">Work in progress..</footer>
+		</blockquote>
 	</div>
 {% endblock %}

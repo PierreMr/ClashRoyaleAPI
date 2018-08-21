@@ -9,6 +9,14 @@ use Symfony\Component\HttpFoundation\Response;
 
 class PagesController extends AbstractController
 {
+	/**
+     * @Route("/home", name="home")
+     */
+    public function home()
+    {
+        return $this->render('pages/index.html.twig');
+    }
+
     /**
      * @Route("/opentournaments", name="openTournaments")
      */
