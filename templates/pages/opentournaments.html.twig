@@ -19,19 +19,36 @@
 					<th>Current Players</th>
 					<th>Status</th>
 					<th>Create Time</th>
-					<th>Duration</th>
+					<th>End Time</th>
 				</tr>
 			</thead>
 			<tbody>
 				{% for tournament in data %}
+
+					{% if tournament.currentPlayers <= 30 %}
+				        {% set nb = 'success' %}
+					{% elseif tournament.currentPlayers > 30 and tournament.currentPlayers <= 45 %}
+				        {% set nb = 'warning' %}
+				    {% else %}
+				        {% set nb = 'danger' %}
+					{% endif %}
+
+					{% if tournament.status == "inPreparation" %}
+				        {% set status = 'success' %}
+					{% elseif tournament.status == "inProgress" %}
+				        {% set status = 'danger' %}
+				    {% else %}
+				        {% set status = 'secondary' %}
+					{% endif %}
+
 					{% if tournament.currentPlayers != tournament.maxPlayers %}
-						<tr>
+						<tr class="table-{{ nb }}">
 							<td>{{ tournament.name }}</td>
 							<td>{{ tournament.maxPlayers }}</td>
-							<td>{{ tournament.currentPlayers }}</td>
-							<td>{{ tournament.status }}</td>
-							<td>{{ tournament.createTime|date('d/m/Y H:i') }}</td>
-							<td>{{ tournament.duration|date('H:i') }}</td>
+							<td class="text-{{ nb }}">{{ tournament.currentPlayers }}</td>
+							<td class="text-{{ status }}">{{ tournament.status }}</td>
+							<td>{{ tournament.createTime|date('H:i') }}</td>
+							<td>{{ tournament.createTime|date_modify("+#{tournament.duration} seconds")|date('H:i') }}</td>
 						</tr>
 					{% endif %}
 				{% endfor %}
