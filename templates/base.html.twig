@@ -10,6 +10,9 @@
         	body {
         		font-family: "Varela Round";
         	}
+        	.footer {
+        		padding: 1rem;
+        	}
         </style>
     </head>
     <body>
@@ -45,7 +48,17 @@
 		    </form> -->
 		  </div>
 		</nav>
+
         {% block body %}{% endblock %}
+
+	    <footer class="footer bg-light m-auto mt-5">
+	    	<div class="container">
+	    		<p>&copy; 2018 ClashRoyaleAPI</p>
+	    		<blockquote class="blockquote">
+	    			<footer class="blockquote-footer">created by Pierre MAUER</footer>
+	    		</blockquote>
+	    	</div>
+	    </footer>
         {% block javascripts %}{% endblock %}
     </body>
 </html>
