@@ -4,12 +4,28 @@
 
 {% block body %}
 	<div class="container">
-		<h1 class="text-center mb-5">Welcome to my ClashRoyaleAPI App</h1>
+		<div class="row">
+			<div class="col-12 mb-5">
+				<h1 class="text-center">Welcome to my ClashRoyaleAPI App</h1>
+			</div>
 
-		<p class="lead">You can see the <a href="/opentournaments">Open Tournaments</a></p>
-
-		<blockquote class="blockquote mt-5">
-  			<footer class="blockquote-footer">Work in progress..</footer>
-		</blockquote>
+			<div class="col-lg-8 mb-5">
+				<p class="lead">You can see the <a href="/opentournaments">Open Tournaments</a></p>
+				<blockquote class="blockquote">
+		  			<footer class="blockquote-footer">The rest of the app is still a work in progress..</footer>
+				</blockquote>
+			</div>
+			<div class="col-lg-4 mb-5">
+				<h3 class="mb-3 text-uppercase font-italic">Beer info</h3>
+				{% for beer in api %}
+					<div class="aligner">
+						<img src="{{ beer.image_url }}" width="10%" class="mb-3 mr-3" />
+						<h4> {{ beer.name }}</h4>
+					</div>
+					<p class="font-italic">{{ beer.tagline }} - {{ beer.first_brewed }}</p>
+					<p class="text-justify">{{ beer.description }}</p>
+				{% endfor %}
+			</div>
+		</div>
 	</div>
 {% endblock %}
