@@ -44,7 +44,7 @@
 				</div>
 				<div class="card-body row m-0">
 					<div class="col-6">
-				    	<h5 class="card-title">{{ battle.team.0.name }}</h5>
+				    	<h5 class="card-title"><a href="/player/{{ battle.team.0.tag }}">{{ battle.team.0.name }}</a></h5>
 				    	<h6 class="font-italic"><img class="img-fluid" src="{{ battle.team.0.clan.badge.image }}" width="23"> {{ battle.team.0.clan.name }}</h6>
 				    	<h6>
 				    		<span class="badge badge-pill badge-warning">{{ battle.team.0.startTrophies }}</span>
@@ -58,7 +58,7 @@
 			    		{% endfor %}
 				    </div>
 				    <div class="col-6 text-right">
-				    	<h5 class="card-title">{{ battle.opponent.0.name }}</h5>
+				    	<h5 class="card-title"><a href="/player/{{ battle.opponent.0.tag }}">{{ battle.opponent.0.name }}</a></h5>
 				    	<h6 class="font-italic">{{ battle.opponent.0.clan.name }} <img class="img-fluid" src="{{ battle.opponent.0.clan.badge.image }}" width="23"></h6>
 				    	<h6>
 				    		{% if battle.opponent.0.trophyChange is defined %}

@@ -4,7 +4,17 @@
 
 {% block body %}
 	<div class="container">
-		<h1 class="text-center mb-4">Player</h1>
+		<h1 class="text-center">{{ data.name }}</h1>
+		<blockquote class="blockquote text-center">
+  			<footer class="blockquote-footer">{{ data.tag }}</footer>
+		</blockquote>
+
+		<h2 class="text-center mb-4">
+			<span class="badge badge-pill badge-warning">{{ data.trophies }}</span>
+			{% if data.rank is not null %}
+				<span class="badge badge-pill badge-success">#{{ data.rank }}</span>
+			{% endif %}
+		</h2>
 		
 		<ul class="nav justify-content-end mb-3">
 			<li class="nav-item">
@@ -15,6 +25,102 @@
 		 	</li>
 		</ul>
 
+		<div class="row">
+			<div class="col-6">
+				<div class="card text-dark bg-light mb-5">
+					<div class="card-header m-0">
+						<h3>Arena</h3>
+					</div>
+					<div class="card-body m-0">
+						<h4>{{ data.arena.name }}</h4>
+					</div>
+				</div>
+			</div>
 
+			<div class="col-6">
+				<div class="card text-dark bg-light mb-5">
+					<div class="card-header m-0">
+						<h3>Clan</h3>
+					</div>
+					<div class="card-body m-0">
+						<h4><img class="img-fluid" src="{{ data.clan.badge.image }}" width="23"> {{ data.clan.name }}</h4>
+						<blockquote class="blockquote">
+							<footer class="blockquote-footer">{{ data.clan.tag }}</footer>
+						</blockquote>
+						<h5>{{ data.clan.role }}</h5>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-12 pl-5 pr-5 mb-5 text-center">
+			{% for key, card in data.currentDeck %}
+	    		<img class="img-fluid" src="{{ card.icon }}" width="150">
+	    		<!-- <span class="badge badge-dark float-left">{{ card.level }}</span> -->
+			{% endfor %}
+		</div>
+
+		<h2 class="mb-3">Statistics</h2>
+
+		<div class="col-12">
+			<div class="card text-dark bg-light mb-5">
+				<div class="card-header m-0">
+					<h3>Games</h3>
+				</div>
+				<div class="card-body row m-0">
+					<div class="col-12 mb-2">
+						<h4>Total : {{ data.games.total }}</h4>
+						<h5>Tournaments : {{ data.games.tournamentGames }}</h5>
+					</div>
+
+					<div class="alert alert-success col-3" role="alert">
+						<h4 class="alert-heading">Wins</h4>
+						<p>{{ data.games.wins }}</p>
+						<hr>
+						<p class="mb-0">{{ data.games.winsPercent *100 }} %</p>
+					</div>
+					<div class="alert alert-secondary col-3 offset-1" role="alert">
+						<h4 class="alert-heading">Draws</h4>
+						<p>{{ data.games.draws }}</p>
+						<hr>
+						<p class="mb-0">{{ data.games.drawsPercent *100 }} %</p>
+					</div>
+					<div class="alert alert-danger col-3 offset-1" role="alert">
+						<h4 class="alert-heading">Losses</h4>
+						<p>{{ data.games.losses }}</p>
+						<hr>
+						<p class="mb-0">{{ data.games.lossesPercent *100 }} %</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-12">
+			<div class="card text-dark bg-light mb-5">
+				<div class="card-header m-0">
+					<h3>League</h3>
+				</div>
+				<div class="card-body row m-0">
+					<div class="alert alert-secondary col-3" role="alert">
+						<h4 class="alert-heading">Previous Season</h4>
+						<p>{{ data.leagueStatistics.previousSeason.trophies }}</p>
+						<hr>
+						<p class="mb-0">Best Trophies : {{ data.leagueStatistics.previousSeason.bestTrophies }}</p>
+					</div>
+					<div class="alert alert-info col-3 offset-1" role="alert">
+						<h4 class="alert-heading">Current Season</h4>
+						<p>{{ data.leagueStatistics.currentSeason.trophies }}</p>
+						<hr>
+						<p class="mb-0">Best Trophies : {{ data.leagueStatistics.currentSeason.bestTrophies }}</p>
+					</div>
+					<div class="alert alert-success col-3 offset-1" role="alert">
+						<h4 class="alert-heading">Best Season</h4>
+						<p>{{ data.leagueStatistics.bestSeason.trophies }}</p>
+						<hr>
+						<!-- <p class="mb-0">{{ data.leagueStatistics.bestSeason.id }}</p> -->
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 {% endblock %}
