@@ -55,7 +55,7 @@
 
 		<div class="col-12 pl-5 pr-5 mb-5 text-center">
 			{% for key, card in data.currentDeck %}
-	    		<img class="img-fluid" src="{{ card.icon }}" width="150">
+	    		<img class="img-fluid" src="{{ card.icon }}" width="150" />
 	    		<!-- <span class="badge badge-dark float-left">{{ card.level }}</span> -->
 			{% endfor %}
 		</div>
@@ -121,6 +121,26 @@
 					</div>
 				</div>
 			</div>
+		</div>
+
+		<h2 class="mb-3">Cards</h2>
+
+		<div class="row">
+			{% for key, card in data.cards %}
+				<div class="col-3">
+					<!-- <div class="card text-dark bg-light mb-5">
+						<div class="card-header m-0">
+							<h3>{{ card.name }}</h3>
+						</div>
+						<div class="card-body row m-0"> -->
+							<h5>{{ card.name }}</h5>
+				    		<span class="badge badge-dark float-left">{{ card.level }}</span>
+							<img class="img-fluid" src="{{ card.icon }}" width="150" />
+							<h6 class="mb-5">{{ card.count }} / {{ card.requiredForUpgrade }}</h6>
+						<!-- </div>
+					</div> -->
+				</div>	
+			{% endfor %}
 		</div>
 	</div>
 {% endblock %}
