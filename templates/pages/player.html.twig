@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ClashROyaleAPI App | Player Battles{% endblock %}
+
+{% block body %}
+	<div class="container">
+		<h1 class="text-center mb-4">Player</h1>
+		
+		<ul class="nav justify-content-end mb-3">
+			<li class="nav-item">
+		    	<a class="nav-link active" href="/battles/{{ tag }}">See Battles</a>
+		 	</li>
+			<li class="nav-item">
+		    	<a class="nav-link active" href="/chests/{{ tag }}">See Upcoming Chests</a>
+		 	</li>
+		</ul>
+
+
+	</div>
+{% endblock %}

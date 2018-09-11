@@ -55,9 +55,32 @@ class PagesController extends AbstractController
     }
 
     /**
-     * @Route("/players/{tag}", name="players")
+     * @Route("/player/{tag}", name="player")
      */
-    public function players(string $tag)
+    public function player(string $tag)
+    {
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, 'https://api.royaleapi.com/player/'.$tag);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-type: application/json', 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUyOCwiaWRlbiI6IjI1ODU0ODAzNTA3MDQ1OTkwNSIsIm1kIjp7fSwidHMiOjE1MzQ4MzU5Mzg4MDJ9.36oCS7ixAoePvtpCEhjaGip1MfWckwWNcp_WpDjz1MU']); // Assuming you're requesting JSON
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+        $response = curl_exec($ch);
+
+        // If using JSON...
+        $data = json_decode($response);
+
+        // var_dump(json_encode($data, JSON_PRETTY_PRINT));
+
+        return $this->render('pages/player.html.twig', [
+            'data' => $data,
+            'tag' => $tag
+        ]);
+    }
+
+    /**
+     * @Route("/battles/{tag}", name="battles")
+     */
+    public function battles(string $tag)
     {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, 'https://api.royaleapi.com/player/'.$tag.'/battles');
@@ -71,7 +94,7 @@ class PagesController extends AbstractController
 
         // var_dump(json_encode($data, JSON_PRETTY_PRINT));
 
-        return $this->render('pages/players.html.twig', [
+        return $this->render('pages/battles.html.twig', [
             'data' => $data,
             'tag' => $tag
         ]);
