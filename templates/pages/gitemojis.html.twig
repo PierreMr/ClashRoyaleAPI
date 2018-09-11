@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ClashROyaleAPI App | Open Tournaments{% endblock %}
+
+{% block body %}
+	<div class="container">
+		<h1 class="text-center mb-4">Open Tournaments Clash Royale</h1>
+
+		<table class="table table-bordered table-striped table-hover">
+			<thead>
+				<tr>
+					<th>Tag</th>
+					<th>Emoji</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for emoji in emojis %}
+					<tr>
+						<td>{{ emoji }}</td>
+						<td>{{ emoji }}</td>
+					</tr>				
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+{% endblock %}

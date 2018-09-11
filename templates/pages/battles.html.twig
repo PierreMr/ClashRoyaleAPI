@@ -1,0 +1,101 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ClashROyaleAPI App | Player Battles{% endblock %}
+
+{% block body %}
+	<div class="container">
+		<h1 class="text-center mb-4">Player Battles</h1>
+
+		{% for battle in data %}
+		    {% if battle.teamCrowns - battle.opponentCrowns > 0 %}
+		    	{% set isWin = 'success' %}
+		    	{% set isLose = 'danger' %}
+		    {% elseif battle.teamCrowns - battle.opponentCrowns == 0 %}
+		    	{% set isWin = 'secondary' %}
+		    {% else %}
+		    	{% set isWin = 'danger' %}
+		    	{% set isLose = 'success' %}
+		    {% endif %}
+
+			<div class="card text-dark border-{{ isWin }} bg-light mb-5">
+				<div class="card-header row m-0 text-{{ isWin }}">
+				    <div class="col-3">
+					    {% if isWin == 'success' %}
+					    	<h4 class="text-capitalize align-middle">Victory</h4>
+					    {% elseif isWin == 'secondary' %}
+					    	<h4 class="text-capitalize align-middle">Draw</h4>
+					    {% elseif isWin == 'danger' %}
+					    	<h4 class="text-capitalize align-middle">Defeat</h4>
+					    {% endif %}
+				   	</div>
+				   	<div class="col-6">
+				   		<h4 class="text-center">{{ battle.teamCrowns }} - {{ battle.opponentCrowns }}</h4>
+				   		<h4 class="text-center">{{ battle.mode.name }}</h4>
+				   	</div>
+				</div>
+				<div class="card-body row m-0">
+					<div class="col-6">
+				    	<h5 class="card-title">{{ battle.team.0.name }}</h5>
+				    	<h6 class="font-italic"><img class="img-fluid" src="{{ battle.team.0.clan.badge.image }}" width="23"> {{ battle.team.0.clan.name }}</h6>
+				    	<h6>
+				    		<span class="badge badge-pill badge-warning">{{ battle.team.0.startTrophies }}</span>
+				    		{% if battle.team.0.trophyChange is defined %}
+				    			<span class="badge badge-pill badge-{{ isWin }}">{{ battle.team.0.trophyChange }}</span>
+				    		{% endif %}
+				    	</h6>
+				    	{% for key, card in battle.team.0.deck %}
+				    		<img class="img-fluid" src="{{ card.icon }}" width="100" height="100">
+				    		<!-- <span class="badge badge-dark float-left">{{ card.level }}</span> -->
+			    		{% endfor %}
+				    </div>
+				    <div class="col-6 text-right">
+				    	<h5 class="card-title">{{ battle.opponent.0.name }}</h5>
+				    	<h6 class="font-italic">{{ battle.opponent.0.clan.name }} <img class="img-fluid" src="{{ battle.opponent.0.clan.badge.image }}" width="23"></h6>
+				    	<h6>
+				    		{% if battle.opponent.0.trophyChange is defined %}
+				    			<span class="badge badge-pill badge-{{ isLose }}">{{ battle.opponent.0.trophyChange }}</span>
+				    		{% endif %}
+				    		<span class="badge badge-pill badge-warning">{{ battle.opponent.0.startTrophies }}</span>
+				    	</h6>
+				    	{% for key, card in battle.opponent.0.deck %}
+				    		<img class="img-fluid" src="{{ card.icon }}" width="100" height="100">
+				    		<!-- <span class="badge badge-dark float-left">{{ card.level }}</span> -->
+			    		{% endfor %}
+				    </div>
+				</div>
+				<div class="card-footer text-muted">
+			    	{{ battle.utcTime|date('d/m/Y H:i') }}
+				</div>
+			</div>
+
+			<ul style="display: none;">
+				<li>{{ battle.type }}</li>
+				<li>{{ battle.mode.name }}</li>
+				<li>{{ battle.utcTime|date('d/m/Y H:i') }}</li>
+				<li>You:</li>
+				<li>{{ battle.team.0.name }}</li>
+				<li>{{ battle.team.0.crownsEarned }}</li>
+				<li>{{ battle.team.0.startTrophies }}</li>
+				<li>{{ battle.team.0.clan.name }}</li>
+				<li><a href="{{ battle.team.0.deckLink }}" target="_blank">{{ battle.team.0.deck.0.name }}</a></li>
+				<li>{{ battle.team.0.deck.0.level }}</li>
+				<li>{{ battle.team.0.deck.0.maxLevel }}</li>
+				<li>{{ battle.team.0.deck.0.rarity }}</li>
+				<li>{{ battle.team.0.deck.0.requiredForUpgrade }}</li>
+				<li><img class="img-fluid" src="{{ battle.team.0.deck.0.icon }}" width="50px" height="50px"></li>
+				<li><img class="img-fluid" src="{{ battle.team.0.deck.1.icon }}" width="50px" height="50px"></li>
+				<li>Opponent:</li>
+				<li>{{ battle.opponent.0.name }}</li>
+				<li>{{ battle.opponent.0.startTrophies }}</li>
+				<li>{{ battle.opponent.0.clan.name }}</li>
+				<li><a href="{{ battle.opponent.0.deckLink }}" target="_blank">{{ battle.opponent.0.deck.0.name }}</a></li>
+				<li>{{ battle.opponent.0.deck.0.level }}</li>
+				<li>{{ battle.opponent.0.deck.0.maxLevel }}</li>
+				<li>{{ battle.opponent.0.deck.0.rarity }}</li>
+				<li>{{ battle.opponent.0.deck.0.requiredForUpgrade }}</li>
+				<li><img class="img-fluid" src="{{ battle.opponent.0.deck.0.icon }}" width="50px" height="50px"></li>
+				<li><img class="img-fluid" src="{{ battle.opponent.0.deck.1.icon }}" width="50px" height="50px"></li>
+			</ul>
+		{% endfor %}
+	</div>
+{% endblock %}

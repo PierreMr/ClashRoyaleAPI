@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ClashROyaleAPI App | Player Battles{% endblock %}
+
+{% block body %}
+	<div class="container mb-5">
+		<h1 class="text-center mb-4">Player Chests</h1>
+		
+		<ul class="nav justify-content-end mb-3">
+			<li class="nav-item">
+		    	<a class="nav-link active" href="/players/{{ tag }}">See Player</a>
+		 	</li>
+		</ul>
+		
+			<h5>Upcoming : </h5>
+			<ul class="nav mb-5">
+				{% for nextChest in data.upcoming %}
+					{% if nextChest == 'gold' %}
+						{% set type = 'warning' %}
+					{% elseif nextChest == 'silver' %}
+						{% set type = 'secondary' %}
+					{% else %}
+						{% set type = 'success' %}
+					{% endif %}
+
+					<li class="nav-item col-1"><h4><span class="badge badge-pill badge-{{ type }}">{{ nextChest }}</span></h4></li>
+				{% endfor %}
+			</ul>
+
+			<h5>Next Giant Chest: <span class="badge badge-pill badge-success">{{ data.giant }}</span></h5>
+			<h5>Next Epic Chest: <span class="badge badge-pill badge-success">{{ data.epic }}</span></h5>
+			<h5>Next Legendary Chest: <span class="badge badge-pill badge-success">{{ data.legendary }}</span></h5>
+			<h5>Next Magical Chest: <span class="badge badge-pill badge-success">{{ data.magical }}</span></h5>
+			<h5>Next SuperMagical Chest: <span class="badge badge-pill badge-success">{{ data.superMagical }}</span></h5>
+	</div>
+{% endblock %}
