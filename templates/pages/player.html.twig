@@ -104,17 +104,23 @@
 					{% if data.leagueStatistics.previousSeason is defined %}
 						<div class="alert alert-secondary col-3" role="alert">
 							<h4 class="alert-heading">Previous Season</h4>
-							<p>{{ data.leagueStatistics.previousSeason.trophies }}</p>
+							{% if data.leagueStatistics.previousSeason.trophies is defined %}
+								<p>{{ data.leagueStatistics.previousSeason.trophies }}</p>
+							{% endif %}
 							<hr>
-							<p class="mb-0">Best Trophies : {{ data.leagueStatistics.previousSeason.bestTrophies }}</p>
+							{% if data.leagueStatistics.previousSeason.bestTrophies is defined %}
+								<p class="mb-0">Best Trophies : {{ data.leagueStatistics.previousSeason.bestTrophies }}</p>
+							{% endif %}
 						</div>
 					{% endif %}
 					{% if data.leagueStatistics.currentSeason is defined %}
 						<div class="alert alert-info col-3 offset-1" role="alert">
 							<h4 class="alert-heading">Current Season</h4>
-							<p>{{ data.leagueStatistics.currentSeason.trophies }}</p>
+							{% if data.leagueStatistics.currentSeason.trophies is defined %}
+								<p>{{ data.leagueStatistics.currentSeason.trophies }}</p>
+							{% endif %}
 							<hr>
-							{% if data.leagueStatistics.bestTrophies is defined %}
+							{% if data.leagueStatistics.currentSeason.bestTrophies is defined %}
 								<p class="mb-0">Best Trophies : {{ data.leagueStatistics.currentSeason.bestTrophies }}</p>
 							{% endif %}
 						</div>
@@ -122,7 +128,9 @@
 					{% endif %}
 						<div class="alert alert-success col-3 offset-1" role="alert">
 							<h4 class="alert-heading">Best Season</h4>
-							<p>{{ data.leagueStatistics.bestSeason.trophies }}</p>
+							{% if data.leagueStatistics.bestSeason.trophies is defined %}
+								<p>{{ data.leagueStatistics.bestSeason.trophies }}</p>
+							{% endif %}
 							<hr>
 							<!-- <p class="mb-0">{{ data.leagueStatistics.bestSeason.id }}</p> -->
 						</div>

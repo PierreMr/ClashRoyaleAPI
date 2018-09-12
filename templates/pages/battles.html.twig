@@ -47,7 +47,9 @@
 				    	<h5 class="card-title"><a href="/player/{{ battle.team.0.tag }}">{{ battle.team.0.name }}</a></h5>
 				    	<h6 class="font-italic"><img class="img-fluid" src="{{ battle.team.0.clan.badge.image }}" width="23"> {{ battle.team.0.clan.name }}</h6>
 				    	<h6>
-				    		<span class="badge badge-pill badge-warning">{{ battle.team.0.startTrophies }}</span>
+				    		{% if battle.team.0.startTrophies is defined %}
+				    			<span class="badge badge-pill badge-warning">{{ battle.team.0.startTrophies }}</span>
+				    		{% endif %}
 				    		{% if battle.team.0.trophyChange is defined %}
 				    			<span class="badge badge-pill badge-{{ isWin }}">{{ battle.team.0.trophyChange }}</span>
 				    		{% endif %}
@@ -64,7 +66,9 @@
 				    		{% if battle.opponent.0.trophyChange is defined %}
 				    			<span class="badge badge-pill badge-{{ isLose }}">{{ battle.opponent.0.trophyChange }}</span>
 				    		{% endif %}
-				    		<span class="badge badge-pill badge-warning">{{ battle.opponent.0.startTrophies }}</span>
+				    		{% if battle.opponent.0.startTrophies is defined %}
+				    			<span class="badge badge-pill badge-warning">{{ battle.opponent.0.startTrophies }}</span>
+				    		{% endif %}
 				    	</h6>
 				    	{% for key, card in battle.opponent.0.deck %}
 				    		<img class="img-fluid" src="{{ card.icon }}" width="100" height="100">
@@ -76,35 +80,6 @@
 			    	{{ battle.utcTime|date('d/m/Y H:i') }}
 				</div>
 			</div>
-
-			<ul style="display: none;">
-				<li>{{ battle.type }}</li>
-				<li>{{ battle.mode.name }}</li>
-				<li>{{ battle.utcTime|date('d/m/Y H:i') }}</li>
-				<li>You:</li>
-				<li>{{ battle.team.0.name }}</li>
-				<li>{{ battle.team.0.crownsEarned }}</li>
-				<li>{{ battle.team.0.startTrophies }}</li>
-				<li>{{ battle.team.0.clan.name }}</li>
-				<li><a href="{{ battle.team.0.deckLink }}" target="_blank">{{ battle.team.0.deck.0.name }}</a></li>
-				<li>{{ battle.team.0.deck.0.level }}</li>
-				<li>{{ battle.team.0.deck.0.maxLevel }}</li>
-				<li>{{ battle.team.0.deck.0.rarity }}</li>
-				<li>{{ battle.team.0.deck.0.requiredForUpgrade }}</li>
-				<li><img class="img-fluid" src="{{ battle.team.0.deck.0.icon }}" width="50px" height="50px"></li>
-				<li><img class="img-fluid" src="{{ battle.team.0.deck.1.icon }}" width="50px" height="50px"></li>
-				<li>Opponent:</li>
-				<li>{{ battle.opponent.0.name }}</li>
-				<li>{{ battle.opponent.0.startTrophies }}</li>
-				<li>{{ battle.opponent.0.clan.name }}</li>
-				<li><a href="{{ battle.opponent.0.deckLink }}" target="_blank">{{ battle.opponent.0.deck.0.name }}</a></li>
-				<li>{{ battle.opponent.0.deck.0.level }}</li>
-				<li>{{ battle.opponent.0.deck.0.maxLevel }}</li>
-				<li>{{ battle.opponent.0.deck.0.rarity }}</li>
-				<li>{{ battle.opponent.0.deck.0.requiredForUpgrade }}</li>
-				<li><img class="img-fluid" src="{{ battle.opponent.0.deck.0.icon }}" width="50px" height="50px"></li>
-				<li><img class="img-fluid" src="{{ battle.opponent.0.deck.1.icon }}" width="50px" height="50px"></li>
-			</ul>
 		{% endfor %}
 	</div>
 {% endblock %}

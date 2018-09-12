@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}ClashROyaleAPI App | Player Battles{% endblock %}
+{% block title %}ClashRoyaleAPI App | Player Upcoming Chests{% endblock %}
 
 {% block body %}
 	<div class="container mb-5">
@@ -26,7 +26,23 @@
 						{% set type = 'success' %}
 					{% endif %}
 
-					<li class="nav-item col-1"><h4><span class="badge badge-pill badge-{{ type }}">{{ nextChest }}</span></h4></li>
+					<!-- <li class="nav-item col-1"><h4><span class="badge badge-pill badge-{{ type }}">{{ nextChest }}</span></h4></li> -->
+
+					{% if nextChest == 'silver' %}
+						<img src="{{ asset('img/silverChest.png') }}">
+					{% elseif nextChest == 'gold' %}
+						<img src="{{ asset('img/goldChest.png') }}">
+					{% elseif nextChest == 'giant' %}
+						<img src="{{ asset('img/giantChest.png') }}">
+					{% elseif nextChest == 'epic' %}
+						<img src="{{ asset('img/epicChest.png') }}">
+					{% elseif nextChest == 'legendary' %}
+						<img src="{{ asset('img/legendaryChest.png') }}">
+					{% elseif nextChest == 'magical' %}
+						<img src="{{ asset('img/magicalChest.png') }}">
+					{% elseif nextChest == 'superMagical' %}
+						<img src="{{ asset('img/superMagicalChest.png') }}">
+					{% endif %}
 				{% endfor %}
 			</ul>
 
