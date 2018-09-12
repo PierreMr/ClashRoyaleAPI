@@ -101,24 +101,32 @@
 					<h3>League</h3>
 				</div>
 				<div class="card-body row m-0">
-					<div class="alert alert-secondary col-3" role="alert">
-						<h4 class="alert-heading">Previous Season</h4>
-						<p>{{ data.leagueStatistics.previousSeason.trophies }}</p>
-						<hr>
-						<p class="mb-0">Best Trophies : {{ data.leagueStatistics.previousSeason.bestTrophies }}</p>
-					</div>
-					<div class="alert alert-info col-3 offset-1" role="alert">
-						<h4 class="alert-heading">Current Season</h4>
-						<p>{{ data.leagueStatistics.currentSeason.trophies }}</p>
-						<hr>
-						<p class="mb-0">Best Trophies : {{ data.leagueStatistics.currentSeason.bestTrophies }}</p>
-					</div>
-					<div class="alert alert-success col-3 offset-1" role="alert">
-						<h4 class="alert-heading">Best Season</h4>
-						<p>{{ data.leagueStatistics.bestSeason.trophies }}</p>
-						<hr>
-						<!-- <p class="mb-0">{{ data.leagueStatistics.bestSeason.id }}</p> -->
-					</div>
+					{% if data.leagueStatistics.previousSeason is defined %}
+						<div class="alert alert-secondary col-3" role="alert">
+							<h4 class="alert-heading">Previous Season</h4>
+							<p>{{ data.leagueStatistics.previousSeason.trophies }}</p>
+							<hr>
+							<p class="mb-0">Best Trophies : {{ data.leagueStatistics.previousSeason.bestTrophies }}</p>
+						</div>
+					{% endif %}
+					{% if data.leagueStatistics.currentSeason is defined %}
+						<div class="alert alert-info col-3 offset-1" role="alert">
+							<h4 class="alert-heading">Current Season</h4>
+							<p>{{ data.leagueStatistics.currentSeason.trophies }}</p>
+							<hr>
+							{% if data.leagueStatistics.bestTrophies is defined %}
+								<p class="mb-0">Best Trophies : {{ data.leagueStatistics.currentSeason.bestTrophies }}</p>
+							{% endif %}
+						</div>
+					{% if data.leagueStatistics.bestSeason is defined %}
+					{% endif %}
+						<div class="alert alert-success col-3 offset-1" role="alert">
+							<h4 class="alert-heading">Best Season</h4>
+							<p>{{ data.leagueStatistics.bestSeason.trophies }}</p>
+							<hr>
+							<!-- <p class="mb-0">{{ data.leagueStatistics.bestSeason.id }}</p> -->
+						</div>
+					{% endif %}
 				</div>
 			</div>
 		</div>
@@ -134,7 +142,16 @@
 						</div>
 						<div class="card-body row m-0"> -->
 							<h5>{{ card.name }}</h5>
-				    		<span class="badge badge-dark float-left">{{ card.level }}</span>
+							{% if card.rarity == 'Common' %}
+								{% set level = card.level %}
+							{% elseif card.rarity == 'Rare' %}
+								{% set level = card.level + 2 %}
+							{% elseif card.rarity == 'Epic' %}
+								{% set level = card.level + 5 %}
+							{% elseif card.rarity == 'Legendary' %}
+								{% set level = card.level + 8 %}
+							{% endif %}
+				    		<span class="badge badge-dark float-left">{{ level }}</span>
 							<img class="img-fluid" src="{{ card.icon }}" width="150" />
 							<h6 class="mb-5">{{ card.count }} / {{ card.requiredForUpgrade }}</h6>
 						<!-- </div>
