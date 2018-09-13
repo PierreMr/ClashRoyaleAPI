@@ -31,8 +31,31 @@
 					<div class="card-header m-0">
 						<h3>Arena</h3>
 					</div>
-					<div class="card-body m-0">
-						<h4>{{ data.arena.name }}</h4>
+					<div class="card-body row m-0">
+						<div class="col-5">
+							{% if data.arena.name == 'Challenger I' %}
+								<img src="{{ asset('assets/img/leagues/challengerI.png') }}" width="109">
+							{% elseif data.arena.name == 'Challenger II' %}
+								<img src="{{ asset('assets/img/leagues/challengerII.png') }}" width="109">
+							{% elseif data.arena.name == 'Challenger III' %}
+								<img src="{{ asset('assets/img/leagues/challengerIII.png') }}" width="109">
+							{% elseif data.arena.name == 'Master I' %}
+								<img src="{{ asset('assets/img/leagues/masterI.png') }}" width="109">
+							{% elseif data.arena.name == 'Master II' %}
+								<img src="{{ asset('assets/img/leagues/masterII.png') }}" width="109">
+							{% elseif data.arena.name == 'Master III' %}
+								<img src="{{ asset('assets/img/leagues/masterIII.png') }}" width="109">
+							{% elseif data.arena.name == 'Champion' %}
+								<img src="{{ asset('assets/img/leagues/champion.png') }}" width="109">
+							{% elseif data.arena.name == 'Grand Champion' %}
+								<img src="{{ asset('assets/img/leagues/grandChampion.png') }}" width="109">
+							{% elseif data.arena.name == 'Ultimate Champion' %}
+								<img src="{{ asset('assets/img/leagues/ultimateChampion.png') }}" width="109">
+							{% endif %}
+						</div>
+						<div class="col-7 mt-5">
+							<h4>{{ data.arena.name }}</h4>
+						</div>
 					</div>
 				</div>
 			</div>

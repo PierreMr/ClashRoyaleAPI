@@ -29,19 +29,19 @@
 					<!-- <li class="nav-item col-1"><h4><span class="badge badge-pill badge-{{ type }}">{{ nextChest }}</span></h4></li> -->
 
 					{% if nextChest == 'silver' %}
-						<img src="{{ asset('assets/img/silverChest.png') }}" width="150">
+						<img src="{{ asset('assets/img/chests/silverChest.png') }}" width="150">
 					{% elseif nextChest == 'gold' %}
-						<img src="{{ asset('assets/img/goldChest.png') }}" width="150">
+						<img src="{{ asset('assets/img/chests/goldChest.png') }}" width="150">
 					{% elseif nextChest == 'giant' %}
-						<img src="{{ asset('assets/img/giantChest.png') }}" width="150">
+						<img src="{{ asset('assets/img/chests/giantChest.png') }}" width="150">
 					{% elseif nextChest == 'epic' %}
-						<img src="{{ asset('assets/img/epicChest.png') }}" width="150">
+						<img src="{{ asset('assets/img/chests/epicChest.png') }}" width="150">
 					{% elseif nextChest == 'legendary' %}
-						<img src="{{ asset('assets/img/legendaryChest.png') }}" width="150">
+						<img src="{{ asset('assets/img/chests/legendaryChest.png') }}" width="150">
 					{% elseif nextChest == 'magical' %}
-						<img src="{{ asset('assets/img/magicalChest.png') }}" width="150">
+						<img src="{{ asset('assets/img/chests/magicalChest.png') }}" width="150">
 					{% elseif nextChest == 'superMagical' %}
-						<img src="{{ asset('assets/img/superMagicalChest.png') }}" width="150">
+						<img src="{{ asset('assets/img/chests/superMagicalChest.png') }}" width="150">
 					{% else %}
 						<img src="{{ asset('assets/img/dontKnow.png') }}" width="150">
 					{% endif %}
@@ -50,10 +50,10 @@
 
 			<hr>
 
-			<img src="{{ asset('assets/img/giantChest.png') }}" width="150"> <span class="badge badge-pill badge-success">{{ data.giant }}</span>
-			<img src="{{ asset('assets/img/epicChest.png') }}" width="150"> <span class="badge badge-pill badge-success">{{ data.epic }}</span>
-			<img src="{{ asset('assets/img/legendaryChest.png') }}" width="150"> <span class="badge badge-pill badge-success">{{ data.legendary }}</span>
-			<img src="{{ asset('assets/img/magicalChest.png') }}" width="150"> <span class="badge badge-pill badge-success">{{ data.magical }}</span>
-			<img src="{{ asset('assets/img/superMagicalChest.png') }}" width="150"> <span class="badge badge-pill badge-success">{{ data.superMagical }}</span>
+			<img src="{{ asset('assets/img/chests/giantChest.png') }}" width="150"> <span class="badge badge-pill badge-success">{{ data.giant }}</span>
+			<img src="{{ asset('assets/img/chests/epicChest.png') }}" width="150"> <span class="badge badge-pill badge-success">{{ data.epic }}</span>
+			<img src="{{ asset('assets/img/chests/legendaryChest.png') }}" width="150"> <span class="badge badge-pill badge-success">{{ data.legendary }}</span>
+			<img src="{{ asset('assets/img/chests/magicalChest.png') }}" width="150"> <span class="badge badge-pill badge-success">{{ data.magical }}</span>
+			<img src="{{ asset('assets/img/chests/superMagicalChest.png') }}" width="150"> <span class="badge badge-pill badge-success">{{ data.superMagical }}</span>
 	</div>
 {% endblock %}
