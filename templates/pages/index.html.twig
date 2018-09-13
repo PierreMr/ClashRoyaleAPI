@@ -1,24 +1,48 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}ClashRoyaleAPI App{% endblock %}
+{% block title %}ClashRoyaleAPI{% endblock %}
 
 {% block body %}
 	<div class="container">
 		<div class="row">
 			<div class="col-12 mb-5">
-				<h1 class="text-center">Welcome to my ClashRoyaleAPI App</h1>
+				<h1 class="text-center">Welcome to ClashRoyaleAPI</h1>
 			</div>
 
-			<div class="col-lg-8 mb-5">
-				<p class="lead">You can see <a href="/player/GRQQLLQR">Players Profiles</a></p>
-				<p class="lead">You can see <a href="/battles/GRQQLLQR">Players Battles</a></p>
-				<p class="lead">You can see <a href="/chests/GRQQLLQR">Players Upcoming Chests</a></p>
-				<p class="lead">You can see <a href="/opentournaments">Open Tournaments</a></p>
-				<blockquote class="blockquote">
+			<div class="col-lg-5 mb-5">
+				<ul class="list-group">
+					<li class="list-group-item">Items</li>
+					<li class="list-group-item"><a href="/player/GRQQLLQR">Profiles</a></li>
+					<li class="list-group-item"><a href="/battles/GRQQLLQR">Battles</a></li>
+					<li class="list-group-item"><a href="/chests/GRQQLLQR">Upcoming Chests</a></li>
+					<li class="list-group-item"><a href="/clan/29VJYYL">Clans</a></li>
+					<li class="list-group-item"><a href="/opentournaments">Open Tournaments</a></li>
+				</ul>
+
+				<blockquote class="blockquote mt-3">
 		  			<footer class="blockquote-footer">The rest of the app is still a work in progress..</footer>
 				</blockquote>
+
+				<!-- <div class="row">
+					<div class="col-4">
+						<div class="list-group" id="list-tab" role="tablist">
+							<a class="list-group-item list-group-item-action active" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home">Home</a>
+							<a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile">Profile</a>
+							<a class="list-group-item list-group-item-action" id="list-messages-list" data-toggle="list" href="#list-messages" role="tab" aria-controls="messages">Messages</a>
+							<a class="list-group-item list-group-item-action" id="list-settings-list" data-toggle="list" href="#list-settings" role="tab" aria-controls="settings">Settings</a>
+						</div>
+					</div>
+					<div class="col-8">
+						<div class="tab-content" id="nav-tabContent">
+							<div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">...</div>
+							<div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">...</div>
+							<div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">...</div>
+							<div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">...</div>
+						</div>
+					</div>
+				</div> -->
 			</div>
-			<div class="col-lg-4 mb-5">
+			<div class="col-lg-4 offset-lg-3 mb-5">
 				<h3 class="mb-3 text-uppercase font-italic">Beer info</h3>
 				{% for beer in api %}
 					<div class="aligner">

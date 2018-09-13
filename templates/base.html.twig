@@ -6,6 +6,7 @@
         {% block stylesheets %}{% endblock %}
         <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
         <link href="https://fonts.googleapis.com/css?family=Lato|M+PLUS+Rounded+1c|Varela+Round" rel="stylesheet">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
         <style type="text/css">
         	body {
         		font-family: "Varela Round";
@@ -13,14 +14,9 @@
         	.footer {
         		padding: 1rem;
         	}
-        	.aligner {
-				display: flex;
-				align-items: center;
-				justify-content: center;
-			}
-			.aligner-item {
-			  max-width: 50%;
-			}
+        	.card-player-footer {
+        		height: 3rem;
+        	}
         </style>
     </head>
     <body>
@@ -36,10 +32,13 @@
 		        <a class="nav-link" href="/player/GRQQLLQR">Player</a>
 		      </li>
 		      <li class="nav-item">
-		        <a class="nav-link" href="/battles/GRQQLLQR">My Battles</a>
+		        <a class="nav-link" href="/battles/GRQQLLQR">Battles</a>
 		      </li>
 		      <li class="nav-item">
-		        <a class="nav-link" href="/chests/GRQQLLQR">My Upcoming Chests</a>
+		        <a class="nav-link" href="/chests/GRQQLLQR">Upcoming Chests</a>
+		      </li>
+		      <li class="nav-item">
+		        <a class="nav-link" href="/clan/29VJYYL">Clan</a>
 		      </li>
 		      <li class="nav-item">
 		        <a class="nav-link" href="/opentournaments">Open Tournaments</a>
@@ -76,6 +75,8 @@
 	    		</blockquote>
 	    	</div>
 	    </footer>
-        {% block javascripts %}{% endblock %}
+        {% block javascripts %}
+        	<script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+        {% endblock %}
     </body>
 </html>

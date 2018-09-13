@@ -1,0 +1,106 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ClashRoyaleAPI | {{ data.name }} {% endblock %}
+
+{% block body %}
+	<div class="container">
+		<h1 class="text-center"><img src="{{ data.badge.image }}" width="50"> {{ data.name }}</h1>
+		<blockquote class="blockquote text-center">
+  			<footer class="blockquote-footer">{{ data.tag }}</footer>
+		</blockquote>
+
+		<table class="table table-bordered table-striped table-hover">
+			<thead>
+				<tr>
+					<th>Score</th>
+					<th>Members</th>
+					<th>Required score</th>
+					<th>Location</th>
+					<th>Total donations</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><img src="{{ asset('assets/img/trophy.png') }}" width="20" alt="Trophy" /> {{ data.score }}</td>
+					<td><i class="fas fa-users"></i> {{ data.memberCount }}</td>
+					<td><i class="fas fa-trophy"></i> {{ data.requiredScore }}</td>
+					<td><i class="fas fa-map-marked-alt"></i> {{ data.location.name }}</td>
+					<td><i class="fas fa-plus"></i> {{ data.donations }}</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<div class="col-6 offset-3">
+			<p class="lead text-center">{{ data.description }}</p>
+		</div>
+		
+		<ul class="nav justify-content-end mb-3">
+			<li class="nav-item">
+		    	<a class="nav-link active" href="/clan/{{ tag }}/battles">Battles</a>
+		 	</li>
+		</ul>
+
+		<table class="table table-bordered table-striped table-hover">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Rank / Previous Rank</th>
+					<th>Role</th>
+					<th>Trophies</th>
+					<th>Donations / %</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for member in data.members %}
+					<tr>
+						<td>
+							<a href="/player/{{ member.tag }}">{{ member.name }}</a> 
+						</td>
+						<td>
+							{% if member.arena.name == 'Challenger I' %}
+								<img src="{{ asset('assets/img/leagues/challengerI.png') }}" width="50" alt="{{ member.arena.name }}">
+							{% elseif member.arena.name == 'Challenger II' %}
+								<img src="{{ asset('assets/img/leagues/challengerII.png') }}" width="50" alt="{{ member.arena.name }}">
+							{% elseif member.arena.name == 'Challenger III' %}
+								<img src="{{ asset('assets/img/leagues/challengerIII.png') }}" width="50" alt="{{ member.arena.name }}">
+							{% elseif member.arena.name == 'Master I' %}
+								<img src="{{ asset('assets/img/leagues/masterI.png') }}" width="50" alt="{{ member.arena.name }}">
+							{% elseif member.arena.name == 'Master II' %}
+								<img src="{{ asset('assets/img/leagues/masterII.png') }}" width="50" alt="{{ member.arena.name }}">
+							{% elseif member.arena.name == 'Master III' %}
+								<img src="{{ asset('assets/img/leagues/masterIII.png') }}" width="50" alt="{{ member.arena.name }}">
+							{% elseif member.arena.name == 'Champion' %}
+								<img src="{{ asset('assets/img/leagues/champion.png') }}" width="50" alt="{{ member.arena.name }}">
+							{% elseif member.arena.name == 'Grand Champion' %}
+								<img src="{{ asset('assets/img/leagues/grandChampion.png') }}" width="50" alt="{{ member.arena.name }}">
+							{% elseif member.arena.name == 'Ultimate Champion' %}
+								<img src="{{ asset('assets/img/leagues/ultimateChampion.png') }}" width="50" alt="{{ member.arena.name }}">
+							{% endif %}
+
+							{% if member.rank < member.previousRank %}
+								<p class="float-right"><span class="badge badge-pill badge-success"><i class="fas fa-angle-up"></i> {{ member.rank }} / {{ member.previousRank }}</span></p>
+							{% elseif member.rank > member.previousRank %}
+								<p class="float-right"><span class="badge badge-pill badge-danger"><i class="fas fa-angle-down"></i> {{ member.rank }} / {{ member.previousRank }}</span></p>
+							{% else %}
+								<p class="float-right"><span class="badge badge-pill badge-secondary">{{ member.rank }} / {{ member.previousRank }}</span></p>
+							{% endif %}
+						</td>
+						<td>{{ member.role }}</td>
+						<td><img src="{{ asset('assets/img/trophy.png') }}" width="20" alt="Trophy" /> {{ member.trophies }}</td>
+						<td>
+							{{ member.donations }} / 
+							{% if member.donationsDelta > 0 %}
+								<span class="badge badge-pill badge-success">{{ member.donationsPercent }} %</span>
+							{% elseif member.donationsDelta < 0 %}
+								<span class="badge badge-pill badge-danger">{{ member.donationsPercent }} %</span>
+							{% else %}
+								{{ member.donationsDelta }}
+							{% endif %}
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+
+	</div>
+{% endblock %}

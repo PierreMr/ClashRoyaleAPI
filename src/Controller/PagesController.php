@@ -22,7 +22,6 @@ class PagesController extends AbstractController
 
         $response = curl_exec($ch);
 
-        // If using JSON...
         $api = json_decode($response);
 
         // var_dump($api);
@@ -44,7 +43,6 @@ class PagesController extends AbstractController
 
 		$response = curl_exec($ch);
 
-		// If using JSON...
 		$data = json_decode($response);
 
 		// var_dump($data);
@@ -66,10 +64,9 @@ class PagesController extends AbstractController
 
         $response = curl_exec($ch);
 
-        // If using JSON...
         $data = json_decode($response);
 
-        // var_dump(json_encode($data, JSON_PRETTY_PRINT));
+        if ($data->error) var_dump(json_encode($data, JSON_PRETTY_PRINT));
 
         return $this->render('pages/player.html.twig', [
             'data' => $data,
@@ -82,6 +79,7 @@ class PagesController extends AbstractController
      */
     public function battles(string $tag)
     {
+        // Battles
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, 'https://api.royaleapi.com/player/'.$tag.'/battles');
         curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-type: application/json', 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUyOCwiaWRlbiI6IjI1ODU0ODAzNTA3MDQ1OTkwNSIsIm1kIjp7fSwidHMiOjE1MzQ4MzU5Mzg4MDJ9.36oCS7ixAoePvtpCEhjaGip1MfWckwWNcp_WpDjz1MU']); // Assuming you're requesting JSON
@@ -89,13 +87,23 @@ class PagesController extends AbstractController
 
         $response = curl_exec($ch);
 
-        // If using JSON...
         $data = json_decode($response);
 
-        // var_dump(json_encode($data, JSON_PRETTY_PRINT));
+        // Player
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, 'https://api.royaleapi.com/player/'.$tag);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-type: application/json', 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUyOCwiaWRlbiI6IjI1ODU0ODAzNTA3MDQ1OTkwNSIsIm1kIjp7fSwidHMiOjE1MzQ4MzU5Mzg4MDJ9.36oCS7ixAoePvtpCEhjaGip1MfWckwWNcp_WpDjz1MU']); // Assuming you're requesting JSON
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+        $response = curl_exec($ch);
+
+        $player = json_decode($response);
+
+        if ($data->error) var_dump(json_encode($data, JSON_PRETTY_PRINT));
 
         return $this->render('pages/battles.html.twig', [
             'data' => $data,
+            'player' => $player,
             'tag' => $tag
         ]);
     }
@@ -112,36 +120,47 @@ class PagesController extends AbstractController
 
         $response = curl_exec($ch);
 
-        // If using JSON...
         $data = json_decode($response);
 
-        // var_dump(json_encode($data, JSON_PRETTY_PRINT));
-
-        return $this->render('pages/chests.html.twig', [
-            'data' => $data,
-            'tag' => $tag
-        ]);
-    }
-
-    /**
-     * @Route("/battle", name="battle")
-     */
-    public function battle()
-    {
+        // Player
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, 'https://api.royaleapi.com/player/GRQQLLQR/battles');
+        curl_setopt($ch, CURLOPT_URL, 'https://api.royaleapi.com/player/'.$tag);
         curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-type: application/json', 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUyOCwiaWRlbiI6IjI1ODU0ODAzNTA3MDQ1OTkwNSIsIm1kIjp7fSwidHMiOjE1MzQ4MzU5Mzg4MDJ9.36oCS7ixAoePvtpCEhjaGip1MfWckwWNcp_WpDjz1MU']); // Assuming you're requesting JSON
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 
         $response = curl_exec($ch);
 
-        // If using JSON...
+        $player = json_decode($response);
+
+        if ($data->error) var_dump(json_encode($data, JSON_PRETTY_PRINT));
+
+        return $this->render('pages/chests.html.twig', [
+            'data' => $data,
+            'player' => $player,
+            'tag' => $tag
+        ]);
+    }
+
+    /**
+     * @Route("/clan/{tag}", name="clan")
+     */
+    public function clan(string $tag)
+    {
+        // Chests
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, 'https://api.royaleapi.com/clan/'.$tag);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-type: application/json', 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUyOCwiaWRlbiI6IjI1ODU0ODAzNTA3MDQ1OTkwNSIsIm1kIjp7fSwidHMiOjE1MzQ4MzU5Mzg4MDJ9.36oCS7ixAoePvtpCEhjaGip1MfWckwWNcp_WpDjz1MU']); // Assuming you're requesting JSON
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+        $response = curl_exec($ch);
+
         $data = json_decode($response);
 
-        // var_dump(json_encode($data, JSON_PRETTY_PRINT));
+        if ($data->error) var_dump(json_encode($data, JSON_PRETTY_PRINT));
 
-        return $this->render('pages/battles.html.twig', [
-            'data' => $data
+        return $this->render('pages/clan.html.twig', [
+            'data' => $data,
+            'tag' => $tag
         ]);
     }
 
@@ -158,7 +177,6 @@ class PagesController extends AbstractController
 
         $response = curl_exec($ch);
 
-        // If using JSON...
         $emojis = json_decode($response);
 
         var_dump($emojis);

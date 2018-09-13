@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}ClashROyaleAPI App | Player Battles{% endblock %}
+{% block title %}ClashRoyaleAPI | {{ data.name }} {% endblock %}
 
 {% block body %}
 	<div class="container">
@@ -10,18 +10,18 @@
 		</blockquote>
 
 		<h2 class="text-center mb-4">
-			<span class="badge badge-pill badge-warning">{{ data.trophies }}</span>
+			<span class="badge badge-pill badge-warning"><i class="fas fa-trophy"></i> {{ data.trophies }}</span>
 			{% if data.rank is not null %}
-				<span class="badge badge-pill badge-success">#{{ data.rank }}</span>
+				<span class="badge badge-pill badge-success"><i class="fas fa-list-ol"></i> #{{ data.rank }}</span>
 			{% endif %}
 		</h2>
 		
 		<ul class="nav justify-content-end mb-3">
 			<li class="nav-item">
-		    	<a class="nav-link active" href="/battles/{{ tag }}">See Battles</a>
+		    	<a class="nav-link active" href="/battles/{{ tag }}">Battles</a>
 		 	</li>
 			<li class="nav-item">
-		    	<a class="nav-link active" href="/chests/{{ tag }}">See Upcoming Chests</a>
+		    	<a class="nav-link active" href="/chests/{{ tag }}">Upcoming Chests</a>
 		 	</li>
 		</ul>
 
@@ -31,8 +31,31 @@
 					<div class="card-header m-0">
 						<h3>Arena</h3>
 					</div>
-					<div class="card-body m-0">
-						<h4>{{ data.arena.name }}</h4>
+					<div class="card-body row m-0">
+						<div class="col-5">
+							{% if data.arena.name == 'Challenger I' %}
+								<img src="{{ asset('assets/img/leagues/challengerI.png') }}" width="109">
+							{% elseif data.arena.name == 'Challenger II' %}
+								<img src="{{ asset('assets/img/leagues/challengerII.png') }}" width="109">
+							{% elseif data.arena.name == 'Challenger III' %}
+								<img src="{{ asset('assets/img/leagues/challengerIII.png') }}" width="109">
+							{% elseif data.arena.name == 'Master I' %}
+								<img src="{{ asset('assets/img/leagues/masterI.png') }}" width="109">
+							{% elseif data.arena.name == 'Master II' %}
+								<img src="{{ asset('assets/img/leagues/masterII.png') }}" width="109">
+							{% elseif data.arena.name == 'Master III' %}
+								<img src="{{ asset('assets/img/leagues/masterIII.png') }}" width="109">
+							{% elseif data.arena.name == 'Champion' %}
+								<img src="{{ asset('assets/img/leagues/champion.png') }}" width="109">
+							{% elseif data.arena.name == 'Grand Champion' %}
+								<img src="{{ asset('assets/img/leagues/grandChampion.png') }}" width="109">
+							{% elseif data.arena.name == 'Ultimate Champion' %}
+								<img src="{{ asset('assets/img/leagues/ultimateChampion.png') }}" width="109">
+							{% endif %}
+						</div>
+						<div class="col-7 mt-5">
+							<h4>{{ data.arena.name }}</h4>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -43,7 +66,7 @@
 						<h3>Clan</h3>
 					</div>
 					<div class="card-body m-0">
-						<h4><img class="img-fluid" src="{{ data.clan.badge.image }}" width="23"> {{ data.clan.name }}</h4>
+						<h4><img class="img-fluid" src="{{ data.clan.badge.image }}" width="23"> <a href="/clan/{{ data.clan.tag }}">{{ data.clan.name }}</h4></a>
 						<blockquote class="blockquote">
 							<footer class="blockquote-footer">{{ data.clan.tag }}</footer>
 						</blockquote>
@@ -60,7 +83,7 @@
 			{% endfor %}
 		</div>
 
-		<h2 class="mb-3">Statistics</h2>
+		<h2 class="mb-3"><i class="fas fa-chart-pie"></i> Statistics</h2>
 
 		<div class="col-12">
 			<div class="card text-dark bg-light mb-5">
@@ -104,17 +127,23 @@
 					{% if data.leagueStatistics.previousSeason is defined %}
 						<div class="alert alert-secondary col-3" role="alert">
 							<h4 class="alert-heading">Previous Season</h4>
-							<p>{{ data.leagueStatistics.previousSeason.trophies }}</p>
+							{% if data.leagueStatistics.previousSeason.trophies is defined %}
+								<p>{{ data.leagueStatistics.previousSeason.trophies }}</p>
+							{% endif %}
 							<hr>
-							<p class="mb-0">Best Trophies : {{ data.leagueStatistics.previousSeason.bestTrophies }}</p>
+							{% if data.leagueStatistics.previousSeason.bestTrophies is defined %}
+								<p class="mb-0">Best Trophies : {{ data.leagueStatistics.previousSeason.bestTrophies }}</p>
+							{% endif %}
 						</div>
 					{% endif %}
 					{% if data.leagueStatistics.currentSeason is defined %}
 						<div class="alert alert-info col-3 offset-1" role="alert">
 							<h4 class="alert-heading">Current Season</h4>
-							<p>{{ data.leagueStatistics.currentSeason.trophies }}</p>
+							{% if data.leagueStatistics.currentSeason.trophies is defined %}
+								<p>{{ data.leagueStatistics.currentSeason.trophies }}</p>
+							{% endif %}
 							<hr>
-							{% if data.leagueStatistics.bestTrophies is defined %}
+							{% if data.leagueStatistics.currentSeason.bestTrophies is defined %}
 								<p class="mb-0">Best Trophies : {{ data.leagueStatistics.currentSeason.bestTrophies }}</p>
 							{% endif %}
 						</div>
@@ -122,7 +151,9 @@
 					{% endif %}
 						<div class="alert alert-success col-3 offset-1" role="alert">
 							<h4 class="alert-heading">Best Season</h4>
-							<p>{{ data.leagueStatistics.bestSeason.trophies }}</p>
+							{% if data.leagueStatistics.bestSeason.trophies is defined %}
+								<p>{{ data.leagueStatistics.bestSeason.trophies }}</p>
+							{% endif %}
 							<hr>
 							<!-- <p class="mb-0">{{ data.leagueStatistics.bestSeason.id }}</p> -->
 						</div>
@@ -131,17 +162,13 @@
 			</div>
 		</div>
 
-		<h2 class="mb-3">Cards</h2>
+		<h2 class="mb-3"><i class="fas fa-id-card-alt"></i> Cards</h2>
 
 		<div class="row">
 			{% for key, card in data.cards %}
-				<div class="col-3">
-					<!-- <div class="card text-dark bg-light mb-5">
+				<div class="col-lg-3 col-md-6 col-xs-12">
+					<div class="card text-dark bg-light mb-5">
 						<div class="card-header m-0">
-							<h3>{{ card.name }}</h3>
-						</div>
-						<div class="card-body row m-0"> -->
-							<h5>{{ card.name }}</h5>
 							{% if card.rarity == 'Common' %}
 								{% set level = card.level %}
 							{% elseif card.rarity == 'Rare' %}
@@ -151,11 +178,15 @@
 							{% elseif card.rarity == 'Legendary' %}
 								{% set level = card.level + 8 %}
 							{% endif %}
-				    		<span class="badge badge-dark float-left">{{ level }}</span>
-							<img class="img-fluid" src="{{ card.icon }}" width="150" />
+							<h4>{{ card.name }} <span class="badge badge-dark float-right h5">{{ level }}</span></h4>
+						</div>
+						<div class="card-body row m-0">
+							<img class="img-fluid" src="{{ card.icon }}" width="287" />
+						</div>
+						<div class="card-player-footer card-footer m-0 bg-success">
 							<h6 class="mb-5">{{ card.count }} / {{ card.requiredForUpgrade }}</h6>
-						<!-- </div>
-					</div> -->
+						</div>
+					</div>
 				</div>	
 			{% endfor %}
 		</div>

@@ -1,17 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}ClashROyaleAPI App | Player Battles{% endblock %}
+{% block title %}ClashRoyaleAPI | {{ player.name }}'s Battles{% endblock %}
 
 {% block body %}
 	<div class="container">
-		<h1 class="text-center mb-4">Player Battles</h1>
+		<h1 class="text-center mb-4">{{ player.name }}'s Battles</h1>
 		
 		<ul class="nav justify-content-end mb-3">
 			<li class="nav-item">
-		    	<a class="nav-link active" href="/player/{{ tag }}">See Player</a>
+		    	<a class="nav-link active" href="/player/{{ tag }}">Player</a>
 		 	</li>
 			<li class="nav-item">
-		    	<a class="nav-link active" href="/chests/{{ tag }}">See Upcoming Chests</a>
+		    	<a class="nav-link active" href="/chests/{{ tag }}">Upcoming Chests</a>
 		 	</li>
 		</ul>
 
@@ -21,6 +21,7 @@
 		    	{% set isLose = 'danger' %}
 		    {% elseif battle.teamCrowns - battle.opponentCrowns == 0 %}
 		    	{% set isWin = 'secondary' %}
+		    	{% set isLose = 'secondary' %}
 		    {% else %}
 		    	{% set isWin = 'danger' %}
 		    	{% set isLose = 'success' %}
@@ -39,36 +40,72 @@
 				   	</div>
 				   	<div class="col-6">
 				   		<h4 class="text-center">{{ battle.teamCrowns }} - {{ battle.opponentCrowns }}</h4>
-				   		<h4 class="text-center">{{ battle.mode.name }}</h4>
 				   	</div>
 				</div>
 				<div class="card-body row m-0">
-					<div class="col-6">
-				    	<h5 class="card-title"><a href="/player/{{ battle.team.0.tag }}">{{ battle.team.0.name }}</a></h5>
-				    	<h6 class="font-italic"><img class="img-fluid" src="{{ battle.team.0.clan.badge.image }}" width="23"> {{ battle.team.0.clan.name }}</h6>
-				    	<h6>
-				    		<span class="badge badge-pill badge-warning">{{ battle.team.0.startTrophies }}</span>
-				    		{% if battle.team.0.trophyChange is defined %}
-				    			<span class="badge badge-pill badge-{{ isWin }}">{{ battle.team.0.trophyChange }}</span>
-				    		{% endif %}
-				    	</h6>
-				    	{% for key, card in battle.team.0.deck %}
-				    		<img class="img-fluid" src="{{ card.icon }}" width="100" height="100">
-				    		<!-- <span class="badge badge-dark float-left">{{ card.level }}</span> -->
+					<div class="col-5">
+						{% for key, team in battle.team %}
+					    	<h5 class="card-title{% if key > 0 %} mt-3{% endif %}"><a href="/player/{{ team.tag }}">{{ team.name }}</a></h5>
+					    	{% if team.clan is not null %}
+					    		<h6 class="font-italic"><a href="/clan/{{ team.clan.tag }}"><img class="img-fluid" src="{{ team.clan.badge.image }}" width="23"> {{ team.clan.name }}</a></h6>
+					    	{% endif %}
+				    		{% if battle.mode.name != 'TeamVsTeamLadder' %}
+						    	<h6>
+						    		{% if team.startTrophies is defined %}
+						    			<span class="badge badge-pill badge-warning"><i class="fas fa-trophy"></i> {{ team.startTrophies }}</span>
+						    		{% else %}
+						    			<span class="badge badge-pill badge-{{ isLose }}">0</span>
+						    		{% endif %}
+						    		{% if team.trophyChange is defined %}
+						    			<span class="badge badge-pill badge-{{ isWin }}">{{ team.trophyChange }}</span>
+						    		{% else %}
+						    			<span class="badge badge-pill badge-warning">0</span>
+						    		{% endif %}
+						    	</h6>
+					    	{% endif %}
+					    	{% for card in team.deck %}
+					    		<img class="img-fluid" src="{{ card.icon }}" width="100" height="100" alt="{{ card.name }}">
+					    		<!-- <span class="badge badge-dark float-left">{{ card.level }}</span> -->
+				    		{% endfor %}
 			    		{% endfor %}
 				    </div>
-				    <div class="col-6 text-right">
-				    	<h5 class="card-title"><a href="/player/{{ battle.opponent.0.tag }}">{{ battle.opponent.0.name }}</a></h5>
-				    	<h6 class="font-italic">{{ battle.opponent.0.clan.name }} <img class="img-fluid" src="{{ battle.opponent.0.clan.badge.image }}" width="23"></h6>
-				    	<h6>
-				    		{% if battle.opponent.0.trophyChange is defined %}
-				    			<span class="badge badge-pill badge-{{ isLose }}">{{ battle.opponent.0.trophyChange }}</span>
+				    <div class="col-2">
+				    	<p class="text-center">
+				    		{% if battle.mode.name == 'Ladder' %}
+								<img src="{{ asset('assets/img/icons/battleIcon.png') }}" width="100" alt="{{ battle.mode.name }}">
+				    		{% elseif battle.mode.name == 'Tournament' or battle.mode.name == 'Challenge' %}
+								<img src="{{ asset('assets/img/icons/tournamentIcon.png') }}" width="100" alt="{{ battle.mode.name }}">
+				    		{% elseif battle.mode.name == 'TeamVsTeamLadder' %}
+								<img src="{{ asset('assets/img/icons/2v2LadderIcon.png') }}" width="100" alt="{{ battle.mode.name }}">
+							{% else %}
+								{{ battle.mode.name }}
 				    		{% endif %}
-				    		<span class="badge badge-pill badge-warning">{{ battle.opponent.0.startTrophies }}</span>
-				    	</h6>
-				    	{% for key, card in battle.opponent.0.deck %}
-				    		<img class="img-fluid" src="{{ card.icon }}" width="100" height="100">
-				    		<!-- <span class="badge badge-dark float-left">{{ card.level }}</span> -->
+			    		</p>
+				    </div>
+				    <div class="col-5 text-right">
+						{% for key, opponent in battle.opponent %}
+					    	<h5 class="card-title{% if key > 0 %} mt-3{% endif %}"><a href="/player/{{ opponent.tag }}">{{ opponent.name }}</a></h5>
+					    	{% if opponent.clan is not null %}
+					    		<h6 class="font-italic"><a href="/clan/{{ opponent.clan.tag }}">{{ opponent.clan.name }} <img class="img-fluid" src="{{ opponent.clan.badge.image }}" width="23"></a></h6>
+					    	{% endif %}
+				    		{% if battle.mode.name != 'TeamVsTeamLadder' %}
+						    	<h6>
+						    		{% if opponent.trophyChange is defined %}
+						    			<span class="badge badge-pill badge-{{ isLose }}">{{ opponent.trophyChange }}</span>
+						    		{% else %}
+						    			<span class="badge badge-pill badge-{{ isLose }}">0</span>
+						    		{% endif %}
+						    		{% if opponent.startTrophies is defined %}
+						    			<span class="badge badge-pill badge-warning"><i class="fas fa-trophy"></i> {{ opponent.startTrophies }}</span>
+						    		{% else %}
+						    			<span class="badge badge-pill badge-warning">0</span>
+						    		{% endif %}
+						    	</h6>
+				    		{% endif %}
+					    	{% for key, card in opponent.deck %}
+					    		<img class="img-fluid" src="{{ card.icon }}" width="100" height="100">
+					    		<!-- <span class="badge badge-dark float-left">{{ card.level }}</span> -->
+				    		{% endfor %}
 			    		{% endfor %}
 				    </div>
 				</div>
@@ -76,35 +113,6 @@
 			    	{{ battle.utcTime|date('d/m/Y H:i') }}
 				</div>
 			</div>
-
-			<ul style="display: none;">
-				<li>{{ battle.type }}</li>
-				<li>{{ battle.mode.name }}</li>
-				<li>{{ battle.utcTime|date('d/m/Y H:i') }}</li>
-				<li>You:</li>
-				<li>{{ battle.team.0.name }}</li>
-				<li>{{ battle.team.0.crownsEarned }}</li>
-				<li>{{ battle.team.0.startTrophies }}</li>
-				<li>{{ battle.team.0.clan.name }}</li>
-				<li><a href="{{ battle.team.0.deckLink }}" target="_blank">{{ battle.team.0.deck.0.name }}</a></li>
-				<li>{{ battle.team.0.deck.0.level }}</li>
-				<li>{{ battle.team.0.deck.0.maxLevel }}</li>
-				<li>{{ battle.team.0.deck.0.rarity }}</li>
-				<li>{{ battle.team.0.deck.0.requiredForUpgrade }}</li>
-				<li><img class="img-fluid" src="{{ battle.team.0.deck.0.icon }}" width="50px" height="50px"></li>
-				<li><img class="img-fluid" src="{{ battle.team.0.deck.1.icon }}" width="50px" height="50px"></li>
-				<li>Opponent:</li>
-				<li>{{ battle.opponent.0.name }}</li>
-				<li>{{ battle.opponent.0.startTrophies }}</li>
-				<li>{{ battle.opponent.0.clan.name }}</li>
-				<li><a href="{{ battle.opponent.0.deckLink }}" target="_blank">{{ battle.opponent.0.deck.0.name }}</a></li>
-				<li>{{ battle.opponent.0.deck.0.level }}</li>
-				<li>{{ battle.opponent.0.deck.0.maxLevel }}</li>
-				<li>{{ battle.opponent.0.deck.0.rarity }}</li>
-				<li>{{ battle.opponent.0.deck.0.requiredForUpgrade }}</li>
-				<li><img class="img-fluid" src="{{ battle.opponent.0.deck.0.icon }}" width="50px" height="50px"></li>
-				<li><img class="img-fluid" src="{{ battle.opponent.0.deck.1.icon }}" width="50px" height="50px"></li>
-			</ul>
 		{% endfor %}
 	</div>
 {% endblock %}
