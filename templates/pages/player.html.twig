@@ -171,17 +171,24 @@
 						<div class="card-header m-0">
 							{% if card.rarity == 'Common' %}
 								{% set level = card.level %}
+								{% set rarity = 'primary' %}
 							{% elseif card.rarity == 'Rare' %}
 								{% set level = card.level + 2 %}
+								{% set rarity = 'warning' %}
 							{% elseif card.rarity == 'Epic' %}
 								{% set level = card.level + 5 %}
+								{% set rarity = 'danger' %}
 							{% elseif card.rarity == 'Legendary' %}
 								{% set level = card.level + 8 %}
+								{% set rarity = 'secondary' %}
 							{% endif %}
-							<h4>{{ card.name }} <span class="badge badge-dark float-right h5">{{ level }}</span></h4>
+							<h4>{{ card.name }}</h4>
 						</div>
 						<div class="card-body row">
-							<img class="img-fluid" src="{{ card.icon }}" width="287" />
+							<img class="img-fluid card-player-img" src="{{ card.icon }}" width="287" />
+							<div class="alert alert-{{ rarity }} card-player-level col-12 text-center" role="alert">
+								Level {{ level }}
+							</div>
 						</div>
 						{% if card.count >= card.requiredForUpgrade %}
 							{% if card.requiredForUpgrade == 'Maxed' %}
