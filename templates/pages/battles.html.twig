@@ -75,8 +75,12 @@
 								<img src="{{ asset('assets/img/icons/battleIcon.png') }}" width="100" alt="{{ battle.mode.name }}">
 				    		{% elseif battle.mode.name == 'Tournament' or battle.mode.name == 'Challenge' %}
 								<img src="{{ asset('assets/img/icons/tournamentIcon.png') }}" width="100" alt="{{ battle.mode.name }}">
-				    		{% elseif battle.mode.name == 'TeamVsTeamLadder' %}
+				    		{% elseif battle.mode.name == 'TeamVsTeamLadder' or battle.mode.name == 'TeamVsTeam_Touchdown_Draft' %}
 								<img src="{{ asset('assets/img/icons/2v2LadderIcon.png') }}" width="100" alt="{{ battle.mode.name }}">
+				    		{% elseif battle.mode.name == 'TripleElixir_Ladder' %}
+								<img src="{{ asset('assets/img/icons/tripleElixirIcon.png') }}" width="100" alt="{{ battle.mode.name }}">
+				    		{% elseif battle.mode.name == 'ClassicDecks_Friendly' %}
+								<img src="{{ asset('assets/img/icons/classicDecksIcon.png') }}" width="100" alt="{{ battle.mode.name }}">
 							{% else %}
 								{{ battle.mode.name }}
 				    		{% endif %}
