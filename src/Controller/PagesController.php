@@ -66,7 +66,7 @@ class PagesController extends AbstractController
 
         $data = json_decode($response);
 
-        if ($data->error) var_dump(json_encode($data, JSON_PRETTY_PRINT));
+        // if ($data->error) var_dump(json_encode($data, JSON_PRETTY_PRINT));
 
         return $this->render('pages/player.html.twig', [
             'data' => $data,
@@ -99,7 +99,7 @@ class PagesController extends AbstractController
 
         $player = json_decode($response);
 
-        if ($data->error) var_dump(json_encode($data, JSON_PRETTY_PRINT));
+        // if ($data->error) var_dump(json_encode($data, JSON_PRETTY_PRINT));
 
         return $this->render('pages/battles.html.twig', [
             'data' => $data,
@@ -132,7 +132,7 @@ class PagesController extends AbstractController
 
         $player = json_decode($response);
 
-        if ($data->error) var_dump(json_encode($data, JSON_PRETTY_PRINT));
+        // if ($data->error) var_dump(json_encode($data, JSON_PRETTY_PRINT));
 
         return $this->render('pages/chests.html.twig', [
             'data' => $data,
@@ -156,7 +156,7 @@ class PagesController extends AbstractController
 
         $data = json_decode($response);
 
-        if ($data->error) var_dump(json_encode($data, JSON_PRETTY_PRINT));
+        // if ($data->error) var_dump(json_encode($data, JSON_PRETTY_PRINT));
 
         return $this->render('pages/clan.html.twig', [
             'data' => $data,
